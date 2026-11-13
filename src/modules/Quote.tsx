@@ -36,6 +36,21 @@ const emptyData = (): QuoteData => ({
   notes: '1. 本报价有效期见右上角，逾期价格需重新确认。\n2. 税费、运费另计。\n3. 确认后请签字或回传本单。',
 })
 
+const sampleData = (): QuoteData => ({
+  seller: { name: '小辣堡 · 香辣鸡腿堡', contact: '王掌柜', phone: '138-0000-0000', addr: '幸福路 88 号一层' },
+  customer: { name: '阳光科技园 · 团餐部', contact: '李经理', phone: '139-0000-0000', addr: '' },
+  meta: { no: `BJ${todayStr().replace(/-/g, '')}-01`, date: todayStr(), validDays: '7' },
+  taxRate: '1',
+  discount: '50',
+  items: [
+    { id: uid(), name: '香辣鸡腿堡套餐', spec: '汉堡+薯条+可乐', qty: '50', unit: '份', price: '19.9' },
+    { id: uid(), name: '经典鸡腿堡', spec: '单个装', qty: '30', unit: '个', price: '12' },
+    { id: uid(), name: '芝士鸡排堡', spec: '单个装', qty: '20', unit: '个', price: '13.5' },
+    { id: uid(), name: '配送费', spec: '园区内统一配送', qty: '1', unit: '次', price: '30' },
+  ],
+  notes: '1. 本报价有效期见右上角，逾期价格需重新确认。\n2. 税费、运费另计。\n3. 团餐请提前 1 天预订，可提供发票。\n4. 确认后请签字或回传本单。',
+})
+
 export default function Quote() {
   const [data, setData] = useStored<QuoteData>('quote.data', emptyData)
   const [tpls, setTpls] = useStored<Array<{ name: string; data: QuoteData }>>('quote.tpl', [])
@@ -103,6 +118,12 @@ export default function Quote() {
     if (window.confirm('新建报价单会清空当前内容，确定吗？（建议先保存模板）')) setData(emptyData())
   }
 
+  const loadSample = () => {
+    const hasContent = data.items.some((it) => it.name || it.price)
+    if (hasContent && !window.confirm('载入示例会替换当前内容，确定吗？')) return
+    setData(sampleData())
+  }
+
   const validTo = useMemo(() => {
     const d = new Date(data.meta.date + 'T00:00:00')
     const days = parseInt(data.meta.validDays) || 0
@@ -118,6 +139,9 @@ export default function Quote() {
         </button>
         <button className="btn" onClick={() => window.print()}>
           🖨 打印 / PDF
+        </button>
+        <button className="btn" onClick={loadSample}>
+          🎲 载入示例
         </button>
         <button className="btn" onClick={newQuote}>
           ➕ 新建

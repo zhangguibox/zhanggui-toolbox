@@ -94,6 +94,17 @@ export default function Schedule() {
 
   const del = (id: string) => setTasks((ts) => ts.filter((t) => t.id !== id))
 
+  const loadSample = () => {
+    if (tasks.length > 0 && !window.confirm('载入示例会替换当前任务清单，确定吗？')) return
+    setTasks([
+      { id: uid(), client: '广告公司', req: '更换新菜单灯箱图', days: '2', prio: '高' },
+      { id: uid(), client: '美团业务经理', req: '对接平台满减活动', days: '1', prio: '高' },
+      { id: uid(), client: '兼职小李', req: '周末兼职招募与培训', days: '1', prio: '中' },
+      { id: uid(), client: '保洁公司', req: '后厨排烟管道清洗', days: '0.5', prio: '中' },
+      { id: uid(), client: '自己', req: '店里绿植与装饰更新', days: '1', prio: '低' },
+    ])
+  }
+
   const planText = () => {
     const head = `排期表（开工 ${startDate}${skipWeekend ? '，跳过周末' : ''}）\n`
     const lines = plan.map((r, i) => {
@@ -130,6 +141,9 @@ export default function Schedule() {
   return (
     <div className="page">
       <PageHead title="需求排期" desc="把零散需求整理成任务，自动排出一张可执行的工期表">
+        <button className="btn" onClick={loadSample}>
+          🎲 载入示例
+        </button>
         <button className="btn" onClick={copyText}>
           📋 复制文本
         </button>
