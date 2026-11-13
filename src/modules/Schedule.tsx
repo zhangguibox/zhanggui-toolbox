@@ -40,7 +40,9 @@ export default function Schedule() {
   const plan = useMemo<PlanRow[]>(() => {
     if (tasks.length === 0) return []
     const sorted = [...tasks].sort((a, b) => PRIO_RANK[a.prio] - PRIO_RANK[b.prio])
-    let cursor = normalizeStart(new Date(startDate + 'T00:00:00'), skipWeekend)
+    let base = new Date(startDate + 'T00:00:00')
+    if (isNaN(base.getTime())) base = new Date(todayStr() + 'T00:00:00')
+    let cursor = normalizeStart(base, skipWeekend)
     const rows: PlanRow[] = []
     for (const t of sorted) {
       const days = Math.max(1, Math.ceil(parseFloat(t.days) || 1))

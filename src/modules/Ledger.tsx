@@ -66,6 +66,9 @@ export default function Ledger() {
       setSource(src)
       setErr('')
       setPaste('')
+      setMonth('')
+      setTypeF('全部')
+      setCatF('')
       if (fileRef.current) fileRef.current.value = ''
       alert(`解析成功：${parsed.length} 笔交易（${src}）`)
     } catch (e) {
