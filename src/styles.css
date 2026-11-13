@@ -175,6 +175,7 @@ table.tb { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 /* ---------- quote ---------- */
 .quote-layout { display: grid; grid-template-columns: minmax(340px, 460px) 1fr; gap: 18px; align-items: start; }
 .quote-form { display: flex; flex-direction: column; gap: 14px; }
+.sheet-scroll { border-radius: 6px; }
 .tpl-row { display: flex; gap: 8px; }
 .tpl-row input { flex: 1; }
 .tpl-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
@@ -242,6 +243,8 @@ table.tb { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 /* ---------- responsive ---------- */
 @media (max-width: 1023px) {
   .quote-layout { grid-template-columns: 1fr; }
+  .sheet-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  #quote-sheet { min-width: 620px; }
 }
 @media (max-width: 899px) {
   .sidebar { display: none; }
@@ -269,6 +272,7 @@ table.tb { width: 100%; border-collapse: collapse; font-size: 13.5px; }
   .page { gap: 0 !important; }
   .quote-layout { display: block !important; }
   .stats { display: none !important; }
-  #quote-sheet { box-shadow: none !important; border: none !important; border-radius: 0 !important; padding: 10px !important; }
+  #quote-sheet { box-shadow: none !important; border: none !important; border-radius: 0 !important; padding: 10px !important; min-width: 0 !important; }
+  .sheet-scroll { overflow: visible !important; }
   body { background: #fff !important; }
 }

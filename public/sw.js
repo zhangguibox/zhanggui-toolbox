@@ -1,4 +1,4 @@
-const CACHE = 'zhanggui-v1'
+const CACHE = 'zhanggui-v2'
 
 self.addEventListener('install', () => {
   self.skipWaiting()

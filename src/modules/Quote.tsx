@@ -373,7 +373,8 @@ export default function Quote() {
             <Stat label="合计" value={fmtMoney(totals.total)} />
           </div>
 
-          <div id="quote-sheet" ref={sheetRef}>
+          <div className="sheet-scroll">
+            <div id="quote-sheet" ref={sheetRef}>
             <div className="qs-top">
               <div className="qs-shop">
                 <b>{data.seller.name || '你的店名'}</b>
@@ -470,6 +471,7 @@ export default function Quote() {
             <div className="qs-foot">
               感谢您的信任与支持 · {data.seller.name || '小店'} 敬上
               {data.seller.phone && ` · 电话 ${data.seller.phone}`}
+            </div>
             </div>
           </div>
         </div>
